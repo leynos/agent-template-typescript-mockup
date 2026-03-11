@@ -17,7 +17,11 @@
     "test:a11y:watch": "vitest --watch --config vitest.a11y.config.ts",
     "test:e2e": "playwright test",
     "lint:ftl-vars": "bun run scripts/check-fluent-vars.ts",
-    "test:all": "bun lint && bun check:types && bun test && bun run test:a11y && bun run lint:ftl-vars && bun test:e2e",
+    "semantic:lint": "bunx biome ci src tests tools && bun run lint:classlist && bun run lint:class-duplicates && uvx semgrep --config tools/semgrep-semantic.yml --include src/**/*.tsx --include tests/**/*.tsx && bunx stylelint 'src/**/*.css' --config tools/stylelint.config.cjs",
+    "semantic": "bun run semantic:lint",
+    "lint:classlist": "bun run scripts/check-classlist-length.ts",
+    "lint:class-duplicates": "bun run scripts/find-near-duplicate-classes.ts",
+    "test:all": "bun lint && bun check:types && bun test && bun run test:a11y && bun run lint:ftl-vars && bun run semantic && bun test:e2e",
     "ff": "bunx --bun @tailwindcss/cli --input src/index.css --output tmp/tailwind.css --verbose && rm -f tmp/tailwind.css && bun run test:all"
   },
   "dependencies": {
@@ -70,7 +74,8 @@
     "jsdom": "^24.1.0",
     "postcss": "^8.4.49",
     "style-dictionary": "^4.0.0",
-    "tsx": "^4.19.0",
+    "stylelint": "^16.25.0",
+    "stylelint-declaration-strict-value": "^1.10.11",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vitest": "^2.1.5"

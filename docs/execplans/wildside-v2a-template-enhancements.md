@@ -352,8 +352,11 @@ The work is complete only when all of the following are true:
 - [x] 2026-03-11 00:00Z: Implemented Milestone 1 in the template sources by
   switching the generated project bootstrap and Pages workflow from `pnpm` to
   Bun and by deriving `APP_BASE_PATH` from `github.event.repository.name`.
-- [ ] Implement Milestone 2: semantic lint config, scripts, and package wiring.
-- [ ] Implement Milestone 3: expanded generic Grit rule pack and Biome wiring.
+- [x] 2026-03-11 00:00Z: Implemented Milestone 2 by adding reusable semantic
+  lint config, Bun-run helper scripts, and generated-project package wiring for
+  class-list, duplicate-class, semgrep, and stylelint checks.
+- [x] 2026-03-11 00:00Z: Implemented Milestone 3 by expanding the template’s
+  generic Grit rule pack and loading the new rules through `template/biome.jsonc`.
 - [ ] Implement Milestone 4: reusable scaffold tests and supporting helpers.
 - [ ] Implement Milestone 5: full validation, evidence capture, and final plan
   update.
@@ -373,6 +376,14 @@ The work is complete only when all of the following are true:
   enough to prove correctness. Rendering the template into a temporary app with
   `copier copy --skip-tasks` provided a cheap way to verify the generated
   workflow and package scripts without committing to a full install yet.
+- The npm package named `semgrep` is not a usable CLI for `bunx`; it installs
+  no executable. The working reusable path is `uvx semgrep`, which keeps Bun in
+  charge of JavaScript and TypeScript execution while invoking the real Semgrep
+  binary for semantic scanning.
+- Turning on semantic linting surfaced a pre-existing template-formatting issue
+  in `template/src/app/routes/route-tree.tsx.jinja`. The scaffold now trims Jinja
+  whitespace so the rendered `route-tree.tsx` passes Biome before semantic
+  checks proceed.
 
 ## Decision Log
 
@@ -403,6 +414,12 @@ The work is complete only when all of the following are true:
   Rationale: Wildside’s reusable tests are valuable, but many assertions embed
   Wildside-specific storage keys, labels, or theme names. The template should
   inherit the test coverage pattern without inheriting application identity.
+
+- Decision: Use `uvx semgrep` instead of an npm dependency for Semgrep.
+  Rationale: The npm package named `semgrep` is only metadata and provides no
+  runnable binary, so it cannot satisfy the scaffold’s semantic gate. `uvx`
+  runs the real CLI while leaving Bun as the package manager and JavaScript
+  runtime for the generated project itself.
 
 ## Outcomes & Retrospective
 
