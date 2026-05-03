@@ -7,5 +7,16 @@
     "minOccurrences": 2,
     "suppressPrefixes": ["prose-", "wysiwyg-"],
     "failOnViolation": false
+  },
+  "hardcodedStrings": {
+    "minWordLength": 2,
+    "userFacingAttributes": [
+      "aria-label",
+      "aria-description",
+      "aria-placeholder",
+      "placeholder",
+      "title",
+      "alt"
+    ]
   }
 }

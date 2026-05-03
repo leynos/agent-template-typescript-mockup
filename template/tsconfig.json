@@ -11,6 +11,7 @@
     "exactOptionalPropertyTypes": true,
     "useUnknownInCatchVariables": true,
     "noPropertyAccessFromIndexSignature": true,
+    "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "moduleDetection": "force",
     "allowArbitraryExtensions": false,
