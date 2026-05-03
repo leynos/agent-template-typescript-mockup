@@ -1,0 +1,62 @@
+_min_copier_version: "9.0.0"
+_subdirectory: template
+
+project_name:
+  type: str
+  help: What is your project name? (use-kebab-case)
+  validator: "{% if not project_name | regex_search('^[a-z][a-z0-9-]*$') %}Project name must be lowercase with hyphens only{% endif %}"
+
+project_title:
+  type: str
+  help: Human-readable project title
+  default: "{{ project_name | replace('-', ' ') | title }}"
+
+project_description:
+  type: str
+  help: Short description of the project
+  default: "A TypeScript/React mockup with accessibility-first design"
+
+github_username:
+  type: str
+  help: GitHub username or organisation name
+
+default_theme_name:
+  type: str
+  help: Default theme name (will create -day and -night variants)
+  default: "{{ project_name }}"
+
+default_locale:
+  type: str
+  help: Default locale code (BCP-47)
+  default: "en-GB"
+  choices:
+    - "en-GB"
+    - "en-US"
+    - "de"
+    - "fr"
+    - "es"
+    - "ja"
+    - "zh-CN"
+
+include_example_routes:
+  type: bool
+  help: Include example routes (Home, About) to demonstrate patterns?
+  default: true
+
+storage_key_prefix:
+  type: str
+  help: LocalStorage key prefix for persistence
+  default: "{{ project_name }}"
+
+_exclude:
+  - "**/.DS_Store"
+  - "**/node_modules"
+  - "**/.git"
+  - "**/dist"
+  - "**/tmp"
+  - "**/*.pyc"
+  - "**/__pycache__"
+
+_tasks:
+  - "bun install"
+  - "bun run tokens:build"
