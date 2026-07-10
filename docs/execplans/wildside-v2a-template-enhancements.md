@@ -22,7 +22,7 @@ JavaScript and TypeScript workflow, GitHub Pages deployment that tracks the
 actual repository name, and baseline tests for the shared scaffold pieces that
 the template already ships. A novice should be able to generate a project from
 the template, run the quality gates with Bun on either `x86_64` or `aarch64`,
-and see both scaffold tests and GitHub Pages build behavior succeed without
+and see both scaffold tests and GitHub Pages build behaviour succeed without
 having to port this hardening by hand.
 
 The observable end state is:
@@ -41,8 +41,8 @@ The observable end state is:
 
 This repository is a template source tree, not a runnable app. The files under
 `template/` are copied into generated projects, so every change in this plan
-must be written as reusable scaffold behavior rather than as application
-behavior.
+must be written as reusable scaffold behaviour rather than as application
+behaviour.
 
 The current reusable foundation is spread across these areas:
 
@@ -55,7 +55,7 @@ The current reusable foundation is spread across these areas:
   `src/main.tsx`, `src/app/providers/*.tsx.jinja`,
   `src/app/layout/global-controls.tsx.jinja`, and router files.
 - `template/tests/` currently contains only setup files and one Playwright
-  accessibility test, so most reusable runtime behavior is untested.
+  accessibility test, so most reusable runtime behaviour is untested.
 - `template/tools/grit/` already contains a starter rule pack and is the
   correct place to extend semantic enforcement for generated projects.
 
@@ -225,10 +225,10 @@ new rules run under the existing Biome integration.
 
 ### Milestone 4: Add reusable scaffold tests for the runtime pieces the template already exports
 
-Port and adapt only the tests that exercise existing template behavior. The
+Port and adapt only the tests that exercise existing template behaviour. The
 priority set is:
 
-1. `src/main.tsx` behavior such as `LoadingBackdrop`, `AppRoot`, and
+1. `src/main.tsx` behaviour such as `LoadingBackdrop`, `AppRoot`, and
    `renderApp`.
 2. `src/i18n.ts.jinja` helpers such as base-path normalization, Fluent load-path
    building, and document `lang` and `dir` synchronization.
@@ -242,7 +242,7 @@ Add only the reusable helpers needed to support those tests, such as a generic
 `render-with-providers` helper, a generic axe helper, and any DOM stubs that
 are independent of application content.
 
-The tests must assert scaffold behavior, not product content. For example,
+The tests must assert scaffold behaviour, not product content. For example,
 assert that language switching updates `document.dir`, that theme changes
 persist a generic storage key, and that the controls expose accessible buttons.
 Do not assert Wildside text labels, theme names, or route names.
@@ -394,7 +394,7 @@ The work is complete only when all of the following are true:
 - The template only ships a default Fluent bundle under
   `template/public/locales/en-GB/common.ftl.jinja`. That means reusable i18n
   tests must verify document synchronization helpers and default-locale boot
-  behavior, not assume translated bundle files already exist for every locale
+  behaviour, not assume translated bundle files already exist for every locale
   listed in `SUPPORTED_LOCALES`.
 - The original file-count tolerance was too low for the generic rule and test
   asset port. Reusable semantic linting and scaffold test coverage naturally
@@ -438,10 +438,10 @@ The work is complete only when all of the following are true:
   JavaScript and TypeScript execution must be done using Bun, and the current
   Pages workflow still violates that by using `pnpm`.
 
-- Decision: Keep GitHub Pages support as a primary observable behavior.
+- Decision: Keep GitHub Pages support as a primary observable behaviour.
   Rationale: This template exists for demonstration and exploration sites, so
   Pages deployment is part of the scaffold contract rather than an optional CI
-  flavor.
+  flavour.
 
 - Decision: Use temporary template instantiation as the first validation layer
   for source-template edits.
@@ -450,7 +450,7 @@ The work is complete only when all of the following are true:
   generated files contain the intended Bun workflow and repository-derived Pages
   base path.
 
-- Decision: Port tests by behavior, not by file copy.
+- Decision: Port tests by behaviour, not by file copy.
   Rationale: Wildside’s reusable tests are valuable, but many assertions embed
   Wildside-specific storage keys, labels, or theme names. The template should
   inherit the test coverage pattern without inheriting application identity.
@@ -463,7 +463,7 @@ The work is complete only when all of the following are true:
 
 - Decision: Keep the new scaffold tests product-neutral even when Wildside used
   hardcoded storage keys or theme names.
-  Rationale: The template should verify persistence and provider behavior by
+  Rationale: The template should verify persistence and provider behaviour by
   interaction and generated runtime state, not by baking a specific app
   identity into the scaffold.
 

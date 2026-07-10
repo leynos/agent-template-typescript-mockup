@@ -12,3 +12,7 @@ tokens/dist/
 
 playwright-report/
 test-results/
+.typos-oxendict-base.json
+.typos-oxendict-base.toml
+*.pyc
+__pycache__/

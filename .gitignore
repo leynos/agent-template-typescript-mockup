@@ -1,0 +1,4 @@
+*.pyc
+__pycache__/
+.typos-oxendict-base.json
+.typos-oxendict-base.toml
