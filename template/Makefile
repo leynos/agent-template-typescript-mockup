@@ -1,10 +1,14 @@
-.PHONY: all check-fmt typecheck lint test spelling
+.PHONY: all check-fmt fmt typecheck lint test spelling
 
 all: check-fmt typecheck lint test
 	+$(MAKE) spelling
 
 check-fmt:
 	bun fmt
+
+fmt: ## Format sources
+	bun fmt
+	mdformat-all
 
 typecheck:
 	bun check:types

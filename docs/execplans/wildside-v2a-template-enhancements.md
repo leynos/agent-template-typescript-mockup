@@ -1,9 +1,8 @@
 # Bring Wildside V2A Template Enhancements Into The Mockup Template
 
-This ExecPlan (execution plan) is a living document. The sections
-`Constraints`, `Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`,
-`Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
-proceeds.
+This ExecPlan (execution plan) is a living document. The sections `Constraints`,
+`Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`, `Decision Log`,
+and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 Status: COMPLETE
 
@@ -112,7 +111,7 @@ brand tokens, images, and feature-specific data are out of scope.
 
 ## Risks
 
-  - Risk: The Wildside semantic lint stack may encode assumptions that are too
+- Risk: The Wildside semantic lint stack may encode assumptions that are too
     opinionated for a general-purpose mockup template.
     Severity: medium
     Likelihood: medium
@@ -120,14 +119,14 @@ brand tokens, images, and feature-specific data are out of scope.
     in `template/tools/semantic-lint.config.json`, and exclude Wildside-named
     prefixes or design-system concepts.
 
-  - Risk: Some Wildside test files rely on Wildside-specific text, theme names,
+- Risk: Some Wildside test files rely on Wildside-specific text, theme names,
     or provider wrappers that do not exist in the template.
     Severity: medium
     Likelihood: high
     Mitigation: Rebuild each reusable test around the template’s existing
     exports and Jinja variables rather than copying tests verbatim.
 
-  - Risk: Replacing `pnpm` with Bun in the Pages workflow may expose lockfile
+- Risk: Replacing `pnpm` with Bun in the Pages workflow may expose lockfile
     or Bun version assumptions in generated projects.
     Severity: medium
     Likelihood: medium
@@ -135,7 +134,7 @@ brand tokens, images, and feature-specific data are out of scope.
     `template/package.json.jinja`, verify `bun install --frozen-lockfile`, and
     include a repo-neutral Pages smoke build in validation.
 
-  - Risk: `stylelint` and `semgrep` may behave differently across `x86_64` and
+- Risk: `stylelint` and `semgrep` may behave differently across `x86_64` and
     `aarch64`, especially when invoked through wrappers.
     Severity: medium
     Likelihood: medium
@@ -143,7 +142,7 @@ brand tokens, images, and feature-specific data are out of scope.
     possible, and treat any architecture-specific install or runtime issue as an
     escalation event rather than papering over it.
 
-  - Risk: New static-analysis rules may produce noisy failures on the minimal
+- Risk: New static-analysis rules may produce noisy failures on the minimal
     scaffold, making the template harder rather than easier to adopt.
     Severity: low
     Likelihood: medium
@@ -168,8 +167,8 @@ path such as `/${{ github.event.repository.name }}` rather than a hardcoded
 project slug.
 
 This milestone is complete when a novice reading the workflow can see that the
-generated project no longer depends on `pnpm`, still copies `dist/index.html`
-to `dist/404.html`, and builds with a repository-derived base path suitable for
+generated project no longer depends on `pnpm`, still copies `dist/index.html` to
+`dist/404.html`, and builds with a repository-derived base path suitable for
 GitHub Pages.
 
 ### Milestone 2: Bring over the reusable semantic lint layer
@@ -296,15 +295,16 @@ set -o pipefail; bun run --cwd template test | tee /tmp/test-agent-template-type
 set -o pipefail; bun run --cwd template test:a11y | tee /tmp/test-a11y-agent-template-typescript-mockup-$(git branch --show).out
 set -o pipefail; bun run --cwd template lint:ftl-vars | tee /tmp/ftl-agent-template-typescript-mockup-$(git branch --show).out
 set -o pipefail; bun run --cwd template semantic | tee /tmp/semantic-agent-template-typescript-mockup-$(git branch --show).out
-set -o pipefail; APP_BASE_PATH=/example-app bun run --cwd template build | tee /tmp/build-pages-agent-template-typescript-mockup-$(git branch --show).out
+set -o pipefail; APP_BASE_PATH=/example-app bun run --cwd template build \
+  | tee /tmp/build-pages-agent-template-typescript-mockup-$(git branch --show).out
 ```
 
 If the template repository itself cannot execute `template/package.json.jinja`
 directly because it is still a source template rather than an instantiated
 project, the implementing agent must document the exact fallback. The fallback
-must still be Bun-based and must prove that the modified commands and config are
-syntactically valid. Examples include generating a temporary fixture app from
-the template or running file-level checks that do not require application
+must still be Bun-based and must prove that the modified commands and config
+are syntactically valid. Examples include generating a temporary fixture app
+from the template or running file-level checks that do not require application
 instantiation. The fallback and its rationale must be written into
 `Decision Log`.
 
@@ -356,7 +356,8 @@ The work is complete only when all of the following are true:
   lint config, Bun-run helper scripts, and generated-project package wiring for
   class-list, duplicate-class, semgrep, and stylelint checks.
 - [x] 2026-03-11 00:00Z: Implemented Milestone 3 by expanding the template’s
-  generic Grit rule pack and loading the new rules through `template/biome.jsonc`.
+  generic Grit rule pack and loading the new rules through
+  `template/biome.jsonc`.
 - [x] 2026-03-11 00:00Z: Implemented Milestone 4 in the template sources by
   adding reusable provider-aware test helpers plus scaffold tests for
   `src/main.tsx`, `src/i18n.ts`, `src/app/i18n/supported-locales.ts`,
@@ -365,8 +366,8 @@ The work is complete only when all of the following are true:
   `src/app/layout/global-controls.tsx`.
 - [x] 2026-03-11 16:42Z: Completed Milestone 5 by rendering a fresh probe app,
   running the Bun-managed validation sequence, fixing template defects exposed
-  by the gates, and rerunning until `bun run test:all` and `bun run ff`
-  passed in the rendered project.
+  by the gates, and rerunning until `bun run test:all` and `bun run ff` passed
+  in the rendered project.
 
 ## Surprises & Discoveries
 
@@ -388,9 +389,9 @@ The work is complete only when all of the following are true:
   charge of JavaScript and TypeScript execution while invoking the real Semgrep
   binary for semantic scanning.
 - Turning on semantic linting surfaced a pre-existing template-formatting issue
-  in `template/src/app/routes/route-tree.tsx.jinja`. The scaffold now trims Jinja
-  whitespace so the rendered `route-tree.tsx` passes Biome before semantic
-  checks proceed.
+  in `template/src/app/routes/route-tree.tsx.jinja`. The scaffold now trims
+  Jinja whitespace so the rendered `route-tree.tsx` passes Biome before
+  semantic checks proceed.
 - The template only ships a default Fluent bundle under
   `template/public/locales/en-GB/common.ftl.jinja`. That means reusable i18n
   tests must verify document synchronization helpers and default-locale boot
@@ -409,8 +410,8 @@ The work is complete only when all of the following are true:
 - Typechecking the rendered probe app surfaced a pre-existing template bug in
   `template/src/app/observability/logger.ts`: `createLogEntry(...)` populated
   optional properties with explicit `undefined` values, which violates
-  `exactOptionalPropertyTypes`. The fix is to conditionally spread `context`
-  and `error` only when they are present.
+  `exactOptionalPropertyTypes`. The fix is to conditionally spread `context` and
+  `error` only when they are present.
 - The new scaffold tests exposed a second template bug in
   `template/src/app/i18n/supported-locales.ts.jinja`: when the selected default
   locale was already present in the standard locale list, the template emitted
@@ -433,10 +434,9 @@ The work is complete only when all of the following are true:
   reusable rather than more reusable.
 
 - Decision: Treat Bun-only workflow as a hard implementation requirement, not as
-  a cleanup preference.
-  Rationale: The user explicitly stated that dependency management and
-  JavaScript and TypeScript execution must be done using Bun, and the current
-  Pages workflow still violates that by using `pnpm`.
+  a cleanup preference. Rationale: The user explicitly stated that dependency
+  management and JavaScript and TypeScript execution must be done using Bun,
+  and the current Pages workflow still violates that by using `pnpm`.
 
 - Decision: Keep GitHub Pages support as a primary observable behaviour.
   Rationale: This template exists for demonstration and exploration sites, so
@@ -444,11 +444,10 @@ The work is complete only when all of the following are true:
   flavour.
 
 - Decision: Use temporary template instantiation as the first validation layer
-  for source-template edits.
-  Rationale: This repository stores Jinja sources rather than a live Bun app,
-  so rendering a temporary `example-app` is the fastest reliable check that the
-  generated files contain the intended Bun workflow and repository-derived Pages
-  base path.
+  for source-template edits. Rationale: This repository stores Jinja sources
+  rather than a live Bun app, so rendering a temporary `example-app` is the
+  fastest reliable check that the generated files contain the intended Bun
+  workflow and repository-derived Pages base path.
 
 - Decision: Port tests by behaviour, not by file copy.
   Rationale: Wildside’s reusable tests are valuable, but many assertions embed
@@ -462,10 +461,9 @@ The work is complete only when all of the following are true:
   runtime for the generated project itself.
 
 - Decision: Keep the new scaffold tests product-neutral even when Wildside used
-  hardcoded storage keys or theme names.
-  Rationale: The template should verify persistence and provider behaviour by
-  interaction and generated runtime state, not by baking a specific app
-  identity into the scaffold.
+  hardcoded storage keys or theme names. Rationale: The template should verify
+  persistence and provider behaviour by interaction and generated runtime
+  state, not by baking a specific app identity into the scaffold.
 
 - Decision: Adapt the i18n runtime tests to the template’s actual shipped
   locale assets instead of copying Wildside’s broader locale assertions.
@@ -480,27 +478,24 @@ The work is complete only when all of the following are true:
   repaired or the user directs a different approach.
 
 - Decision: Continue within the approved scope despite exceeding the initial
-  new-file-count tolerance.
-  Rationale: The threshold turned out to be undersized for reusable Grit-rule,
-  script, and scaffold-test ports. The excess files are all template-generic
-  assets, not product-content creep, so the right corrective action is to
-  document the miss and keep the work resumable rather than discard the
-  already-implemented template hardening.
+  new-file-count tolerance. Rationale: The threshold turned out to be
+  undersized for reusable Grit-rule, script, and scaffold-test ports. The
+  excess files are all template-generic assets, not product-content creep, so
+  the right corrective action is to document the miss and keep the work
+  resumable rather than discard the already-implemented template hardening.
 
 - Decision: Treat rendered-project gate failures as template bugs when they
   come from the shared scaffold, even if they were not part of the original
-  Wildside comparison list.
-  Rationale: The goal of this plan is a working reusable template. Once the
-  rendered probe app exposed `exactOptionalPropertyTypes` and duplicate-locale
-  defects in shared runtime code, fixing them became part of completing the
-  scaffold hardening honestly.
+  Wildside comparison list. Rationale: The goal of this plan is a working
+  reusable template. Once the rendered probe app exposed
+  `exactOptionalPropertyTypes` and duplicate-locale defects in shared runtime
+  code, fixing them became part of completing the scaffold hardening honestly.
 
 - Decision: Validate both the individual gates and the shipped aggregate
-  commands.
-  Rationale: Running the discrete checks made it easier to isolate failures,
-  while the final `bun run test:all` and `bun run ff` passes proved that the
-  generated template behaves correctly through the commands downstream users are
-  expected to run.
+  commands. Rationale: Running the discrete checks made it easier to isolate
+  failures, while the final `bun run test:all` and `bun run ff` passes proved
+  that the generated template behaves correctly through the commands downstream
+  users are expected to run.
 
 - Decision: Use a project-local Playwright browser install for validation.
   Rationale: Bun blocked postinstalls during `bun install`, so the rendered
@@ -512,9 +507,9 @@ The work is complete only when all of the following are true:
 
 Complete delivery. The template now carries the Bun-only Pages bootstrap,
 reusable semantic linting, the expanded generic Grit rule pack, and baseline
-runtime tests for the scaffold pieces it already shipped. During validation, the
-rendered probe app also exposed two shared-runtime defects that were fixed as
-part of the work: optional-property construction in the logger and duplicate
+runtime tests for the scaffold pieces it already shipped. During validation,
+the rendered probe app also exposed two shared-runtime defects that were fixed
+as part of the work: optional-property construction in the logger and duplicate
 locale emission in the locale metadata module.
 
 Observable proof came from a freshly rendered probe app created with Copier and

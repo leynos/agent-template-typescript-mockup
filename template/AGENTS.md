@@ -16,8 +16,7 @@
 - **Clear commit messages.** Commit messages should be descriptive,
   explaining what changed and why.
 - **Name things precisely.** Clear, descriptive variable and function
-  names are preferred. Boolean names should prefer `is`, `has`, or
-  `should`.
+  names are preferred. Boolean names should prefer `is`, `has`, or `should`.
 - **Structure logically.** Each file should encapsulate a coherent module. Group
   related code (e.g., models + utilities + fixtures) close together.
 - **Group by feature, not layer.** Colocate views, logic, fixtures, and helpers
@@ -177,8 +176,8 @@ browser‑only runtime.
   `bun test`, and `bun test:e2e`. `bun run <name>` remains available when the
   explicit form is clearer. `lint` covers Biome checks, whilst `check:types`
   keeps TypeScript errors visible. The `test` script uses Bun's built-in
-  runner, preloading the Happy DOM shim so component tests can render without
-  a browser.
+  runner, preloading the Happy DOM shim so component tests can render without a
+  browser.
 
   Call Biome or other CLIs through `bunx` when ad hoc execution makes sense:
 
@@ -481,10 +480,9 @@ The following tooling is available in this environment:
      shipping changes.
   3. Repeat after refinements so regressions are caught early.
 - `a11y MCP` – Run fast accessibility sweeps on the same pages covered with
-  Playwright. After navigating, invoke `a11y.scan_page` to collect
-  automated issues. Review the findings, fix blockers, and rerun the
-  scan until it is clean. Pair this with manual keyboard checks before
-  shipping.
+  Playwright. After navigating, invoke `a11y.scan_page` to collect automated
+  issues. Review the findings, fix blockers, and rerun the scan until it is
+  clean. Pair this with manual keyboard checks before shipping.
 
 ## Key Takeaway
 

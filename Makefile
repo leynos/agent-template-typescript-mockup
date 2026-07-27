@@ -1,7 +1,10 @@
-.PHONY: spelling test
+.PHONY: fmt spelling test
 
 TYPOS_VERSION ?= 1.48.0
 TYPOS := uv tool run typos@$(TYPOS_VERSION)
+
+fmt: ## Format Markdown sources
+	mdformat-all
 
 spelling: ## Enforce en-GB-oxendict spelling in parent and template prose
 	uv run scripts/generate_typos_config.py
