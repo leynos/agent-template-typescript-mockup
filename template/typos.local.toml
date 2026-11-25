@@ -12,6 +12,8 @@ accepted = []
 
 [patterns]
 ignore = []
+# Inline code spans are exempt in Markdown only, so source files stay checked.
+markdown_only = ['`[^`\n]+`']
 
 [files]
 exclude = []

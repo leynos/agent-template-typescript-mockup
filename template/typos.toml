@@ -51,6 +51,14 @@ extend-ignore-re = [
     "currentColor",
 ]
 
+[type.markdown]
+extend-glob = [
+    "*.md",
+]
+extend-ignore-re = [
+    "`[^`\\n]+`",
+]
+
 [default.extend-words]
 "ASO" = "ASO"
 "absolutisable" = "absolutizable"
