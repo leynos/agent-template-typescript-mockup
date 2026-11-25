@@ -118,10 +118,6 @@
 ## Markdown Guidance
 
 - Validate Markdown files using `bunx markdownlint-cli "*.md" "docs/**/*.md"`.
-- Run `make spelling` to refresh the shared en-GB-oxendict base, regenerate
-  `typos.toml`, and check maintained Markdown with the pinned `typos` release.
-  Add narrow repository-only exceptions to `typos.local.toml`; never edit the
-  generated configuration by hand.
 - Run `bun fmt` after any documentation changes to format all Markdown
   files and fix table markup.
 - Validate Mermaid diagrams in Markdown files by running `bunx nixie`.
@@ -488,3 +484,19 @@ The following tooling is available in this environment:
 
 These practices help maintain a high-quality codebase and facilitate
 collaboration.
+
+<!-- typos-config-builder:agents-md:start -->
+
+## Spelling
+
+- `make spelling` runs the pinned `typos-config-builder gate`, which
+  regenerates `typos.toml` from the shared en-GB-oxendict dictionary and
+  `typos.local.toml`, then checks spelling and the shared phrase corrections.
+- `typos.toml` is generated: never edit it by hand. Put narrow
+  repository-specific exceptions in `typos.local.toml`, as exact or full-line
+  patterns rather than bare accepted words.
+- When `make spelling` changes `typos.toml`, commit the regenerated file. If
+  the change is unrelated to your work, commit it in a separate base pull
+  request and stack your branch on it, so each review diff stays focused.
+
+<!-- typos-config-builder:agents-md:end -->
